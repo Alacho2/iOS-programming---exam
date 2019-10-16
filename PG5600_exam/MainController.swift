@@ -21,6 +21,7 @@ class MainController: UIViewController {
         guard let lovedArray = response["loved"] else {
           return;
         }
+        print(lovedArray)
         self.lovedMusicItems = lovedArray;
       },
       failed: {(failRes) in print(failRes)
