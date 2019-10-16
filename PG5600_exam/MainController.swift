@@ -10,14 +10,14 @@ import UIKit
 
 class MainController: UIViewController {
   
-  var lovedMusicItems: [LovedItem] = []
+  var lovedMusicItems: [AlbumDetail] = []
   
   override func viewDidLoad() {
     super.viewDidLoad();
     
     NetworkHandler().makeRequestWith(
       url: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album",
-      completed: {(response: [String: [LovedItem]]) in
+      completed: {(response: [String: [AlbumDetail]]) in
         guard let lovedArray = response["loved"] else {
           return;
         }

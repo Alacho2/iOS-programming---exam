@@ -9,10 +9,10 @@
 import Foundation
 
 struct Loved: Codable {
-  let loved: [LovedItem?];
+  let loved: [AlbumDetail?];
 }
 
-struct LovedItem: Codable {
+struct AlbumDetail: Codable {
   let idAlbum, idArtist, strArtist, strAlbumThumb, strAlbum: String;
   let idLabel: String?;
 
