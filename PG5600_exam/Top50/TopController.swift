@@ -19,7 +19,6 @@ class TopController: UIViewController {
     topListTableView.delegate = self;
     topListTableView.dataSource = self;
     
-    
     NetworkHandler().makeRequestWith(
       url: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album",
       completed: {(response: [String: [AlbumDetail]]) in
@@ -46,6 +45,7 @@ extension TopController: UITableViewDataSource, UITableViewDelegate {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "TopItemCell") as! TopItemCell;
     cell.albumTitle?.text = topItem.strAlbum;
+    cell.albumArtist?.text = topItem.strArtist;
   
     DispatchQueue.init(label: "background").async {
       let data = try! Data(contentsOf: URL(string: topItem.strAlbumThumb)!)
@@ -55,10 +55,11 @@ extension TopController: UITableViewDataSource, UITableViewDelegate {
       }
     }
     
-    //print(topItem.strArtist);
-    
     return cell;
   }
-  
-  
+
+  //Storyboard is 100% retarded, so we force the height here.
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 110;
+  }
 }
