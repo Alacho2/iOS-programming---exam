@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4489A2DB23539E6700044D22 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DA23539E6700044D22 /* MainController.swift */; };
+		4489A2DB23539E6700044D22 /* TopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DA23539E6700044D22 /* TopController.swift */; };
 		4489A2DD23539F1D00044D22 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DC23539F1D00044D22 /* Structs.swift */; };
 		44C0948323584F0B0011E2F5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0948223584F0B0011E2F5 /* SearchController.swift */; };
 		44C0948523584F2C0011E2F5 /* FavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0948423584F2C0011E2F5 /* FavController.swift */; };
+		44C09488235856F30011E2F5 /* TopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C09487235856F30011E2F5 /* TopItemCell.swift */; };
 		44C984802353A13000557B56 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9847F2353A13000557B56 /* NetworkHandler.swift */; };
 		44EF7DF123539D5D00581152 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EF7DF023539D5D00581152 /* AppDelegate.swift */; };
 		44EF7DF323539D5D00581152 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EF7DF223539D5D00581152 /* SceneDelegate.swift */; };
@@ -44,10 +45,11 @@
 /* Begin PBXFileReference section */
 		0B1853EBEDA8975E73D937E1 /* Pods-PG5600_exam-PG5600_examUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_exam-PG5600_examUITests.debug.xcconfig"; path = "Target Support Files/Pods-PG5600_exam-PG5600_examUITests/Pods-PG5600_exam-PG5600_examUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2ED857EE329124E0FA1739FF /* Pods-PG5600_exam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_exam.release.xcconfig"; path = "Target Support Files/Pods-PG5600_exam/Pods-PG5600_exam.release.xcconfig"; sourceTree = "<group>"; };
-		4489A2DA23539E6700044D22 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		4489A2DA23539E6700044D22 /* TopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopController.swift; sourceTree = "<group>"; };
 		4489A2DC23539F1D00044D22 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		44C0948223584F0B0011E2F5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		44C0948423584F2C0011E2F5 /* FavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavController.swift; sourceTree = "<group>"; };
+		44C09487235856F30011E2F5 /* TopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopItemCell.swift; sourceTree = "<group>"; };
 		44C9847F2353A13000557B56 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		44EF7DED23539D5D00581152 /* PG5600_exam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PG5600_exam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44EF7DF023539D5D00581152 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,15 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		44C09486235852510011E2F5 /* Top50 */ = {
+			isa = PBXGroup;
+			children = (
+				4489A2DA23539E6700044D22 /* TopController.swift */,
+				44C09487235856F30011E2F5 /* TopItemCell.swift */,
+			);
+			path = Top50;
+			sourceTree = "<group>";
+		};
 		44EF7DE423539D5D00581152 = {
 			isa = PBXGroup;
 			children = (
@@ -143,11 +154,11 @@
 		44EF7DEF23539D5D00581152 /* PG5600_exam */ = {
 			isa = PBXGroup;
 			children = (
+				44C09486235852510011E2F5 /* Top50 */,
 				44C0948123584CA30011E2F5 /* API */,
 				4489A2D923539DE700044D22 /* MainStuff */,
 				44EF7DF923539D6000581152 /* Assets.xcassets */,
 				44EF7DFE23539D6000581152 /* Info.plist */,
-				4489A2DA23539E6700044D22 /* MainController.swift */,
 				4489A2DC23539F1D00044D22 /* Structs.swift */,
 				44C0948223584F0B0011E2F5 /* SearchController.swift */,
 				44C0948423584F2C0011E2F5 /* FavController.swift */,
@@ -439,8 +450,9 @@
 				44C0948523584F2C0011E2F5 /* FavController.swift in Sources */,
 				44C0948323584F0B0011E2F5 /* SearchController.swift in Sources */,
 				44EF7DF123539D5D00581152 /* AppDelegate.swift in Sources */,
-				4489A2DB23539E6700044D22 /* MainController.swift in Sources */,
+				4489A2DB23539E6700044D22 /* TopController.swift in Sources */,
 				44C984802353A13000557B56 /* NetworkHandler.swift in Sources */,
+				44C09488235856F30011E2F5 /* TopItemCell.swift in Sources */,
 				44EF7DF323539D5D00581152 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
