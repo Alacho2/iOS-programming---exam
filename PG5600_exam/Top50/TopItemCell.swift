@@ -13,4 +13,22 @@ class TopItemCell: UITableViewCell {
   @IBOutlet weak var albumTitle: UILabel!
   @IBOutlet weak var albumArt: UIImageView!
   @IBOutlet weak var albumArtist: UILabel!
+  @IBOutlet weak var heart: UIButton!
+  
+  var isClicked = false;
+  
+  @IBAction func favoriseAlbum(_ sender: UIButton) {
+    
+    //Should handle logic for favorizing tracks
+    if(!isClicked) {
+      heart.setBackgroundImage(UIImage(systemName: "suit.heart.fill"), for: .normal);
+      isClicked = true;
+      heart.tintColor = .systemRed;
+    } else {
+      heart.setBackgroundImage(UIImage(systemName: "suit.heart"), for: .normal)
+      isClicked = false;
+      heart.tintColor = .opaqueSeparator;
+    }
+  }
+  
 }

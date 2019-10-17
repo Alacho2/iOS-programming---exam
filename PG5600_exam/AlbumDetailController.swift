@@ -12,17 +12,18 @@ class AlbumDetailController: UIViewController {
   
   
   //Initializing with some fallback data
-  var albumDetail: AlbumDetail = AlbumDetail(
+  var albumDetail: AlbumDetail? /* AlbumDetail(
     idAlbum: "0",
     idArtist: "0",
     strArtist: "Håvard",
     strAlbumThumb: "https://fakepicture.com/data.jpg",
     strAlbum: "Nordlie",
-    idLabel: "Queen");
+    idLabel: "Queen"
+  );*/
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-      self.title = "\(albumDetail.strArtist) - \(albumDetail.strAlbum)"
+  
+    self.title = "\(albumDetail!.strArtist) - \(albumDetail!.strAlbum)"
   }
 }

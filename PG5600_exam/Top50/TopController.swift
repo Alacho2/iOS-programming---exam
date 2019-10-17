@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 //Reminder to ask Markus or Henrik about scrollViewDidScollToTop
 
 class TopController: UIViewController, UIScrollViewDelegate {
@@ -74,14 +73,14 @@ extension TopController: UITableViewDataSource, UITableViewDelegate {
     let cell = tableView.dequeueReusableCell(withIdentifier: "TopItemCell") as! TopItemCell;
     cell.albumTitle?.text = topItem.strAlbum;
     cell.albumArtist?.text = topItem.strArtist;
-  
-    DispatchQueue.init(label: "background").async {
+    cell.albumArt?.image = UIImage(data: topItem.imageData);
+    /*DispatchQueue.init(label: "background").async {
       let data = try! Data(contentsOf: URL(string: topItem.strAlbumThumb)!)
       
       DispatchQueue.main.async {
         cell.albumArt.image = UIImage(data: data);
       }
-    }
+    } */
     
     return cell;
   }
