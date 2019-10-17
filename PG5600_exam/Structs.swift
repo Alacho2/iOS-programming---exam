@@ -8,12 +8,7 @@
 
 import Foundation
 
-struct Loved: Codable {
-  let loved: [AlbumDetail?];
-}
-
 struct AlbumDetail: Codable {
   let idAlbum, idArtist, strArtist, strAlbumThumb, strAlbum: String;
   let idLabel: String?;
-
 }

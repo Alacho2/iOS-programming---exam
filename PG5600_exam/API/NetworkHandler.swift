@@ -21,7 +21,7 @@ class NetworkHandler {
       .responseJSON(queue: DispatchQueue.init(label: "Background"))
       { response in
         guard let data = response.data else {return};
-        guard let value = response.value else {return};
+        guard let _ = response.value else {return};
         
         if let statusCode = response.error?.responseCode {
           failed("Error with status code: \(statusCode)");
