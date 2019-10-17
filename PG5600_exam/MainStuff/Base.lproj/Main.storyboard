@@ -44,14 +44,22 @@
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXf-Rd-CI8">
+                                                    <rect key="frame" x="343" y="34" width="51" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" backgroundImage="heart" catalog="system"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="miJ-dD-Ul1" firstAttribute="leading" secondItem="B2a-hh-vXf" secondAttribute="leading" id="3sg-FV-9Er"/>
                                                 <constraint firstItem="miJ-dD-Ul1" firstAttribute="top" secondItem="ijD-dn-bGm" secondAttribute="topMargin" constant="21" id="5JT-fp-n60"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="8iV-dL-5MI" secondAttribute="bottom" constant="14" id="Lfb-UN-Y5m"/>
                                                 <constraint firstItem="miJ-dD-Ul1" firstAttribute="leading" secondItem="8iV-dL-5MI" secondAttribute="trailing" constant="23" id="MpE-ps-XPk"/>
+                                                <constraint firstItem="kXf-Rd-CI8" firstAttribute="centerY" secondItem="ijD-dn-bGm" secondAttribute="centerY" id="Po8-GO-eqs"/>
                                                 <constraint firstItem="8iV-dL-5MI" firstAttribute="top" secondItem="ijD-dn-bGm" secondAttribute="topMargin" constant="7" id="Q96-lK-NQe"/>
                                                 <constraint firstItem="8iV-dL-5MI" firstAttribute="leading" secondItem="ijD-dn-bGm" secondAttribute="leadingMargin" id="eFC-Fn-SWD"/>
+                                                <constraint firstAttribute="trailing" secondItem="kXf-Rd-CI8" secondAttribute="trailing" constant="20" id="ghx-7r-fkr"/>
                                                 <constraint firstItem="B2a-hh-vXf" firstAttribute="top" secondItem="miJ-dD-Ul1" secondAttribute="bottom" constant="1" id="z3o-at-8iN"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -76,6 +84,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2195.6521739130435" y="-85.044642857142847"/>
+        </scene>
+        <!--Hello-->
+        <scene sceneID="IgW-OE-0kM">
+            <objects>
+                <viewController storyboardIdentifier="albumdetail" title="Hello" id="Win-LJ-9Qm" customClass="AlbumDetailController" customModule="PG5600_exam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="albumdetail" id="Dh0-UN-VYa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="H9U-3U-4o8"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r6U-0f-txo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2928" y="-85"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="VmY-cn-2At">
@@ -130,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9X-2d-LQN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2206" y="577"/>
+            <point key="canvasLocation" x="839" y="895"/>
         </scene>
         <!--Search-->
         <scene sceneID="YVl-Pd-Rki">
@@ -146,10 +170,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEf-15-fpY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1020" y="716"/>
+            <point key="canvasLocation" x="138" y="895"/>
         </scene>
     </scenes>
     <resources>
+        <image name="heart" catalog="system" width="64" height="54"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="star" catalog="system" width="64" height="58"/>
         <image name="suit.heart" catalog="system" width="64" height="54"/>

@@ -38,11 +38,17 @@ class TopController: UIViewController, UIScrollViewDelegate {
     })
   }
   
-  
    //Spørre Markus / Henrik
-   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if(scrollView.contentOffset.y > -4) {
       makeRequest();
+    }
+  }
+  
+  func makeTransition(identifier: String, data: AlbumDetail){
+    if let vc = self.storyboard?.instantiateViewController(identifier: identifier) as AlbumDetailController? {
+      vc.albumDetail = data
+      self.navigationController?.pushViewController(vc, animated: true)
     }
   }
   
@@ -78,6 +84,12 @@ extension TopController: UITableViewDataSource, UITableViewDelegate {
     }
     
     return cell;
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let topItem = self.lovedMusicItems[indexPath.row];
+    makeTransition(identifier: "albumdetail", data: topItem);
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 
   //Storyboard is 100% retarded, so we force the height here.

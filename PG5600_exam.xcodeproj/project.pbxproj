@@ -13,6 +13,7 @@
 		44C0948523584F2C0011E2F5 /* FavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0948423584F2C0011E2F5 /* FavController.swift */; };
 		44C09488235856F30011E2F5 /* TopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C09487235856F30011E2F5 /* TopItemCell.swift */; };
 		44C984802353A13000557B56 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9847F2353A13000557B56 /* NetworkHandler.swift */; };
+		44E92F4E235878E6006E7629 /* AlbumDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E92F4D235878E6006E7629 /* AlbumDetailController.swift */; };
 		44EF7DF123539D5D00581152 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EF7DF023539D5D00581152 /* AppDelegate.swift */; };
 		44EF7DF323539D5D00581152 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EF7DF223539D5D00581152 /* SceneDelegate.swift */; };
 		44EF7DF823539D5D00581152 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44EF7DF623539D5D00581152 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		44C0948423584F2C0011E2F5 /* FavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavController.swift; sourceTree = "<group>"; };
 		44C09487235856F30011E2F5 /* TopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopItemCell.swift; sourceTree = "<group>"; };
 		44C9847F2353A13000557B56 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
+		44E92F4D235878E6006E7629 /* AlbumDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailController.swift; sourceTree = "<group>"; };
 		44EF7DED23539D5D00581152 /* PG5600_exam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PG5600_exam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44EF7DF023539D5D00581152 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44EF7DF223539D5D00581152 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				4489A2DC23539F1D00044D22 /* Structs.swift */,
 				44C0948223584F0B0011E2F5 /* SearchController.swift */,
 				44C0948423584F2C0011E2F5 /* FavController.swift */,
+				44E92F4D235878E6006E7629 /* AlbumDetailController.swift */,
 			);
 			path = PG5600_exam;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				44C0948323584F0B0011E2F5 /* SearchController.swift in Sources */,
 				44EF7DF123539D5D00581152 /* AppDelegate.swift in Sources */,
 				4489A2DB23539E6700044D22 /* TopController.swift in Sources */,
+				44E92F4E235878E6006E7629 /* AlbumDetailController.swift in Sources */,
 				44C984802353A13000557B56 /* NetworkHandler.swift in Sources */,
 				44C09488235856F30011E2F5 /* TopItemCell.swift in Sources */,
 				44EF7DF323539D5D00581152 /* SceneDelegate.swift in Sources */,
