@@ -8,16 +8,17 @@
 
 import UIKit
 
-class TopItemCell: UITableViewCell {
+class TopItemCell: UICollectionViewCell {
   
   @IBOutlet weak var albumTitle: UILabel!
+  /*@IBOutlet weak var albumTitle: UILabel!
   @IBOutlet weak var albumArt: UIImageView!
   @IBOutlet weak var albumArtist: UILabel!
-  @IBOutlet weak var heart: UIButton!
+  @IBOutlet weak var heart: UIButton!  */
   
   var isClicked = false;
   
-  @IBAction func favoriseAlbum(_ sender: UIButton) {
+  /*@IBAction func favoriseAlbum(_ sender: UIButton) {
     
     //Should handle logic for favorizing tracks
     if(!isClicked) {
@@ -29,6 +30,6 @@ class TopItemCell: UITableViewCell {
       isClicked = false;
       heart.tintColor = .opaqueSeparator;
     }
-  }
+  } */
   
 }

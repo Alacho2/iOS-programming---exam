@@ -12,13 +12,23 @@ import UIKit
 
 class TopController: UIViewController, UIScrollViewDelegate {
   
+  @IBOutlet weak var topListCollView: UICollectionView!
   var lovedMusicItems: [AlbumDetail] = []
-  @IBOutlet weak var topListTableView: UITableView!
+  
+  var refreshController: UIRefreshControl = UIRefreshControl();
   
   override func viewDidLoad() {
     super.viewDidLoad();
-    topListTableView.delegate = self;
-    topListTableView.dataSource = self;
+    self.topListCollView.delegate = self;
+    self.topListCollView.dataSource = self;
+    /*self.topListCollView!.alwaysBounceVertical = true;
+    self.refreshController.backgroundColor = UIColor.red;
+    self.refreshController.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged);
+    self.topListCollView.addSubview(refreshController); */
+    refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh");
+    refreshController.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+    topListCollView.addSubview(refreshController);
+
     makeRequest();
   }
   
@@ -29,20 +39,29 @@ class TopController: UIViewController, UIScrollViewDelegate {
         guard let lovedArray = response["loved"] else {
           return;
         }
-        //print(lovedArray)
+        
         self.lovedMusicItems = lovedArray;
-        self.topListTableView.reloadData();
+        self.topListCollView.reloadData();
+        print("finished");
       },
       failed: {(failRes) in self.displayError(error: failRes)
     })
   }
   
+  @objc func pullToRefresh() {
+    //self.topListCollView.refreshControl?.beginRefreshing();
+    makeRequest();
+    self.topListCollView.reloadData();
+    refreshController.endRefreshing();
+
+  }
+  
    //Spørre Markus / Henrik
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+  /*func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if(scrollView.contentOffset.y > -4) {
       makeRequest();
     }
-  }
+  } */
   
   func makeTransition(identifier: String, data: AlbumDetail){
     if let vc = self.storyboard?.instantiateViewController(identifier: identifier) as AlbumDetailController? {
@@ -62,38 +81,33 @@ class TopController: UIViewController, UIScrollViewDelegate {
   }
 }
 
-extension TopController: UITableViewDataSource, UITableViewDelegate {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension TopController: UICollectionViewDelegate, UICollectionViewDataSource {
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1;
+  }
+  
+  
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return self.lovedMusicItems.count;
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let topItem = self.lovedMusicItems[indexPath.row];
+  
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let topItem = self.lovedMusicItems[indexPath.item];
     
-    let cell = tableView.dequeueReusableCell(withIdentifier: "TopItemCell") as! TopItemCell;
-    cell.albumTitle?.text = topItem.strAlbum;
-    cell.albumArtist?.text = topItem.strArtist;
-    cell.albumArt?.image = UIImage(data: topItem.imageData);
-    /*DispatchQueue.init(label: "background").async {
-      let data = try! Data(contentsOf: URL(string: topItem.strAlbumThumb)!)
-      
-      DispatchQueue.main.async {
-        cell.albumArt.image = UIImage(data: data);
-      }
-    } */
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopItemCell", for: indexPath) as! TopItemCell
     
+    cell.albumTitle?.text = topItem.strAlbum
     return cell;
   }
   
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let topItem = self.lovedMusicItems[indexPath.row];
     makeTransition(identifier: "albumdetail", data: topItem);
-    tableView.deselectRow(at: indexPath, animated: true)
+    collectionView.deselectItem(at: indexPath, animated: true);
   }
-
-  //Storyboard is 100% retarded, so we force the height here.
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 110;
-  }
-
+  
 }
