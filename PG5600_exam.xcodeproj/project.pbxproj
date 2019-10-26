@@ -11,6 +11,8 @@
 		446F6514236489A00023F5A9 /* CompactItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446F6513236489A00023F5A9 /* CompactItemCell.swift */; };
 		4489A2DB23539E6700044D22 /* TopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DA23539E6700044D22 /* TopController.swift */; };
 		4489A2DD23539F1D00044D22 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DC23539F1D00044D22 /* Structs.swift */; };
+		44AEE9572364CDB600841231 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AEE9562364CDB600841231 /* TrackCell.swift */; };
+		44B7BD272364DEF60067FC1A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7BD262364DEF60067FC1A /* Extensions.swift */; };
 		44C0948323584F0B0011E2F5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0948223584F0B0011E2F5 /* SearchController.swift */; };
 		44C0948523584F2C0011E2F5 /* FavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0948423584F2C0011E2F5 /* FavController.swift */; };
 		44C09488235856F30011E2F5 /* TopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C09487235856F30011E2F5 /* TopItemCell.swift */; };
@@ -52,6 +54,8 @@
 		446F6513236489A00023F5A9 /* CompactItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactItemCell.swift; sourceTree = "<group>"; };
 		4489A2DA23539E6700044D22 /* TopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopController.swift; sourceTree = "<group>"; };
 		4489A2DC23539F1D00044D22 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		44AEE9562364CDB600841231 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		44B7BD262364DEF60067FC1A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		44C0948223584F0B0011E2F5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		44C0948423584F2C0011E2F5 /* FavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavController.swift; sourceTree = "<group>"; };
 		44C09487235856F30011E2F5 /* TopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopItemCell.swift; sourceTree = "<group>"; };
@@ -107,6 +111,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4443FBC3236499F300544AB7 /* AlbumDetail */ = {
+			isa = PBXGroup;
+			children = (
+				44E92F4D235878E6006E7629 /* AlbumDetailController.swift */,
+				44AEE9562364CDB600841231 /* TrackCell.swift */,
+			);
+			path = AlbumDetail;
+			sourceTree = "<group>";
+		};
 		4489A2D923539DE700044D22 /* MainStuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +174,7 @@
 		44EF7DEF23539D5D00581152 /* PG5600_exam */ = {
 			isa = PBXGroup;
 			children = (
-				446F64CF2363A2E60023F5A9 /* TestModel.xcdatamodeld */,
+				4443FBC3236499F300544AB7 /* AlbumDetail */,
 				44C09486235852510011E2F5 /* Top50 */,
 				44C0948123584CA30011E2F5 /* API */,
 				4489A2D923539DE700044D22 /* MainStuff */,
@@ -170,7 +183,8 @@
 				4489A2DC23539F1D00044D22 /* Structs.swift */,
 				44C0948223584F0B0011E2F5 /* SearchController.swift */,
 				44C0948423584F2C0011E2F5 /* FavController.swift */,
-				44E92F4D235878E6006E7629 /* AlbumDetailController.swift */,
+				446F64CF2363A2E60023F5A9 /* TestModel.xcdatamodeld */,
+				44B7BD262364DEF60067FC1A /* Extensions.swift */,
 			);
 			path = PG5600_exam;
 			sourceTree = "<group>";
@@ -463,9 +477,11 @@
 				446F6514236489A00023F5A9 /* CompactItemCell.swift in Sources */,
 				4489A2DB23539E6700044D22 /* TopController.swift in Sources */,
 				44E92F4E235878E6006E7629 /* AlbumDetailController.swift in Sources */,
+				44B7BD272364DEF60067FC1A /* Extensions.swift in Sources */,
 				44C984802353A13000557B56 /* NetworkHandler.swift in Sources */,
 				44C09488235856F30011E2F5 /* TopItemCell.swift in Sources */,
 				44EF7DF323539D5D00581152 /* SceneDelegate.swift in Sources */,
+				44AEE9572364CDB600841231 /* TrackCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

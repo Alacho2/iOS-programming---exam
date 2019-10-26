@@ -36,7 +36,6 @@ class TopController: UIViewController, UIScrollViewDelegate {
         guard let lovedArray = response["loved"] else {
           return;
         }
-        
         self.lovedMusicItems = lovedArray;
         self.topListCollView.reloadData();
         print("finished");
@@ -50,7 +49,6 @@ class TopController: UIViewController, UIScrollViewDelegate {
     makeRequest();
     self.topListCollView.reloadData();
     refreshController.endRefreshing();
-
   }
   
   func makeTransition(identifier: String, data: AlbumDetail){

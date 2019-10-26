@@ -17,6 +17,7 @@ class NetworkHandler {
     failed:@escaping (_ response: String) -> Void
   ) {
     AF.request(url)
+      .validate(statusCode: 200..<300)
       .validate(contentType: ["application/json"])
       .responseJSON(queue: DispatchQueue.init(label: "Background"))
       { response in
