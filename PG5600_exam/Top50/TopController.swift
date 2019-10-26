@@ -8,12 +8,12 @@
 
 import UIKit
 
-//Reminder to ask Markus or Henrik about scrollViewDidScollToTop
-
 class TopController: UIViewController, UIScrollViewDelegate {
   
   @IBOutlet weak var topListCollView: UICollectionView!
   var lovedMusicItems: [AlbumDetail] = []
+  
+  @IBOutlet weak var switcher: UISegmentedControl!
   
   var refreshController: UIRefreshControl = UIRefreshControl();
   
@@ -22,9 +22,6 @@ class TopController: UIViewController, UIScrollViewDelegate {
     self.topListCollView.delegate = self;
     self.topListCollView.dataSource = self;
     self.topListCollView!.alwaysBounceVertical = true;
-    /*self.refreshController.backgroundColor = UIColor.red;
-    self.refreshController.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged);
-    self.topListCollView.addSubview(refreshController); */
     refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh");
     refreshController.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     topListCollView.addSubview(refreshController);
@@ -59,10 +56,13 @@ class TopController: UIViewController, UIScrollViewDelegate {
   func makeTransition(identifier: String, data: AlbumDetail){
     if let vc = self.storyboard?.instantiateViewController(identifier: identifier) as AlbumDetailController? {
       vc.albumDetail = data
-      self.navigationController?.pushViewController(vc, animated: true)
+    self.navigationController?.pushViewController(vc, animated: true)
     }
   }
   
+  @IBAction func switched(_ sender: UISegmentedControl) {
+    topListCollView.reloadData();
+  }
   
   func displayError(error: String){
     let alert = UIAlertController(title: "Failed", message: error, preferredStyle: .alert)
@@ -74,10 +74,20 @@ class TopController: UIViewController, UIScrollViewDelegate {
   }
 }
 
-extension TopController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TopController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1;
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let width = view.frame.width;
+    
+    if(self.switcher.selectedSegmentIndex == 0) {
+      return CGSize(width: (width - 15) / 2, height: 125)
+    } else {
+      return CGSize(width: width, height: 45);
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -87,10 +97,18 @@ extension TopController: UICollectionViewDelegate, UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let topItem = self.lovedMusicItems[indexPath.item];
     
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopItemCell", for: indexPath) as! TopItemCell
-    
-    cell.albumTitle?.text = topItem.strAlbum
-    return cell;
+    if (self.switcher.selectedSegmentIndex == 0) {
+      
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopItemCell", for: indexPath) as! TopItemCell
+      cell.albumTitle?.text = topItem.strAlbum
+      cell.albumImage?.image = UIImage(data: topItem.imageData);
+      return cell;
+    } else {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompactCell", for: indexPath) as! CompactItemCell
+      cell.albumTitle?.text = topItem.strAlbum
+      cell.artistTitle?.text = topItem.strArtist
+      return cell;
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

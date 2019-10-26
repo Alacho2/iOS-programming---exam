@@ -11,6 +11,7 @@ import UIKit
 class TopItemCell: UICollectionViewCell {
   
   @IBOutlet weak var albumTitle: UILabel!
+  @IBOutlet weak var albumImage: UIImageView!
   /*@IBOutlet weak var albumTitle: UILabel!
   @IBOutlet weak var albumArt: UIImageView!
   @IBOutlet weak var albumArtist: UILabel!

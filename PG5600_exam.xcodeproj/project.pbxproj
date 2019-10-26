@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		446F64D12363A2E60023F5A9 /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 446F64CF2363A2E60023F5A9 /* TestModel.xcdatamodeld */; };
+		446F6514236489A00023F5A9 /* CompactItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446F6513236489A00023F5A9 /* CompactItemCell.swift */; };
 		4489A2DB23539E6700044D22 /* TopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DA23539E6700044D22 /* TopController.swift */; };
 		4489A2DD23539F1D00044D22 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489A2DC23539F1D00044D22 /* Structs.swift */; };
 		44C0948323584F0B0011E2F5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0948223584F0B0011E2F5 /* SearchController.swift */; };
@@ -48,6 +49,7 @@
 		0B1853EBEDA8975E73D937E1 /* Pods-PG5600_exam-PG5600_examUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_exam-PG5600_examUITests.debug.xcconfig"; path = "Target Support Files/Pods-PG5600_exam-PG5600_examUITests/Pods-PG5600_exam-PG5600_examUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2ED857EE329124E0FA1739FF /* Pods-PG5600_exam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_exam.release.xcconfig"; path = "Target Support Files/Pods-PG5600_exam/Pods-PG5600_exam.release.xcconfig"; sourceTree = "<group>"; };
 		446F64D02363A2E60023F5A9 /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
+		446F6513236489A00023F5A9 /* CompactItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactItemCell.swift; sourceTree = "<group>"; };
 		4489A2DA23539E6700044D22 /* TopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopController.swift; sourceTree = "<group>"; };
 		4489A2DC23539F1D00044D22 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		44C0948223584F0B0011E2F5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				4489A2DA23539E6700044D22 /* TopController.swift */,
 				44C09487235856F30011E2F5 /* TopItemCell.swift */,
+				446F6513236489A00023F5A9 /* CompactItemCell.swift */,
 			);
 			path = Top50;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				44C0948523584F2C0011E2F5 /* FavController.swift in Sources */,
 				44C0948323584F0B0011E2F5 /* SearchController.swift in Sources */,
 				44EF7DF123539D5D00581152 /* AppDelegate.swift in Sources */,
+				446F6514236489A00023F5A9 /* CompactItemCell.swift in Sources */,
 				4489A2DB23539E6700044D22 /* TopController.swift in Sources */,
 				44E92F4E235878E6006E7629 /* AlbumDetailController.swift in Sources */,
 				44C984802353A13000557B56 /* NetworkHandler.swift in Sources */,
