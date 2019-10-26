@@ -21,8 +21,8 @@ class TopController: UIViewController, UIScrollViewDelegate {
     super.viewDidLoad();
     self.topListCollView.delegate = self;
     self.topListCollView.dataSource = self;
-    /*self.topListCollView!.alwaysBounceVertical = true;
-    self.refreshController.backgroundColor = UIColor.red;
+    self.topListCollView!.alwaysBounceVertical = true;
+    /*self.refreshController.backgroundColor = UIColor.red;
     self.refreshController.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged);
     self.topListCollView.addSubview(refreshController); */
     refreshController.attributedTitle = NSAttributedString(string: "Pull to refresh");
@@ -49,19 +49,12 @@ class TopController: UIViewController, UIScrollViewDelegate {
   }
   
   @objc func pullToRefresh() {
-    //self.topListCollView.refreshControl?.beginRefreshing();
+    self.topListCollView.refreshControl?.beginRefreshing();
     makeRequest();
     self.topListCollView.reloadData();
     refreshController.endRefreshing();
 
   }
-  
-   //Spørre Markus / Henrik
-  /*func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    if(scrollView.contentOffset.y > -4) {
-      makeRequest();
-    }
-  } */
   
   func makeTransition(identifier: String, data: AlbumDetail){
     if let vc = self.storyboard?.instantiateViewController(identifier: identifier) as AlbumDetailController? {
@@ -87,13 +80,9 @@ extension TopController: UICollectionViewDelegate, UICollectionViewDataSource {
     return 1;
   }
   
-  
-  
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return self.lovedMusicItems.count;
   }
-  
-  
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let topItem = self.lovedMusicItems[indexPath.item];
