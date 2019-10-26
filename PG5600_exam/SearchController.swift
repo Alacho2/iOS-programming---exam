@@ -13,7 +13,7 @@ class SearchController: UIViewController {
     override func viewDidLoad() {
       super.viewDidLoad()
       print("You are in search")
-
+      
     }
     
 

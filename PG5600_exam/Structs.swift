@@ -39,7 +39,7 @@ struct AlbumDetail: Codable {
 }
 
 struct Track: Codable {
-  let idArtist, idTrack, intDuration, strArtist, strAlbum, strGenre, strTrack: String;
-  let idAlbum: String?;
+  let idArtist, idTrack, intDuration, strArtist, strAlbum, strTrack: String;
+  let idAlbum, strGenre: String?;
   //362000 / 1000 / 60 = minutes seconds
 }

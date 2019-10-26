@@ -27,7 +27,7 @@ class AlbumDetailController: UIViewController {
   
     if let album = albumDetail {
       self.title = "\(album.strArtist) - \(album.strAlbum)"
-      albumCover.image = UIImage(data: album.imageData);
+      albumCover.image = UIImage(data: album.imageData); //placeholder image set in storyboard
       releaseYear.text = album.intYearReleased;
       artistTitle.text = "By \(album.strArtist)";
       albumTitle.text = album.strAlbum;
@@ -49,11 +49,7 @@ class AlbumDetailController: UIViewController {
     },
     failed: {(failRes) in print("Something went terribly wrong")})
     }
-  
-
 }
-
-
 
 extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
   
