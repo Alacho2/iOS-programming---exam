@@ -99,7 +99,7 @@ extension TopController: UICollectionViewDelegate, UICollectionViewDataSource, U
       
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopItemCell", for: indexPath) as! TopItemCell
       cell.albumTitle?.text = topItem.strAlbum
-      cell.albumImage?.image = UIImage(data: topItem.imageData);
+      cell.albumImage?.image = UIImage(data: topItem.imageData!);
       return cell;
     } else {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompactCell", for: indexPath) as! CompactItemCell

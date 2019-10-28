@@ -9,9 +9,9 @@
 import Foundation
 
 struct AlbumDetail: Codable {
-  let idAlbum, idArtist, strArtist, strAlbum, strAlbumThumb, intYearReleased: String;
-  let idLabel: String?;
-  let imageData: Data;
+  let idAlbum, idArtist, strArtist, strAlbum, intYearReleased: String;
+  let idLabel, strAlbumThumb: String?;
+  let imageData: Data?;
   
   enum AlbumKeys: String, CodingKey {
     case imageData
@@ -31,7 +31,7 @@ struct AlbumDetail: Codable {
     strArtist = try values.decode(String.self, forKey: .strArtist);
     strAlbumThumb = try values.decode(String.self, forKey: .strAlbumThumb);
     //Let's handle image processing here, so it doesn't happen on the fly for every scroll
-    imageData = try! Data(contentsOf: URL(string: strAlbumThumb)!)
+    imageData = try! Data(contentsOf: URL(string: strAlbumThumb!)!)
     intYearReleased = try values.decode(String.self, forKey: .intYearReleased)
     strAlbum = try values.decode(String.self, forKey: .strAlbum);
     idLabel = try values.decode(String?.self, forKey: .idLabel);
@@ -42,4 +42,9 @@ struct Track: Codable {
   let idArtist, idTrack, intDuration, strArtist, strAlbum, strTrack: String;
   let idAlbum, strGenre: String?;
   //362000 / 1000 / 60 = minutes seconds
+}
+
+struct SearchAlbum: Codable {
+  let idArtist, idAlbum, strAlbum, intYearReleased, strArtist: String;
+  let strAlbumThumb: String?;
 }
