@@ -17,7 +17,6 @@ class AlbumDetailController: UIViewController {
   @IBOutlet weak var releaseYear: UILabel!
   @IBOutlet weak var artistTitle: UILabel!
   @IBOutlet weak var tableView: UITableView!
-  var fetchUrl: String = "";
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,15 +26,17 @@ class AlbumDetailController: UIViewController {
   
     if let album = albumDetail {
       self.title = "\(album.strArtist) - \(album.strAlbum)"
+      getTrackInfo(fetchUrl: "https://theaudiodb.com/api/v1/json/195223/track.php?m=\(album.idAlbum)");
       releaseYear.text = album.intYearReleased;
       artistTitle.text = "By \(album.strArtist)";
       albumTitle.text = album.strAlbum;
-      fetchUrl = "https://theaudiodb.com/api/v1/json/195223/track.php?m=\(album.idAlbum)"
+      if let cover = album.strAlbumThumb {
+        albumCover.kf.setImage(with: URL(string: cover));
+      }
     }
-    getTrackInfo();
   }
   
-  func getTrackInfo() {
+  func getTrackInfo(fetchUrl: String) {
     NetworkHandler().makeRequestWith(
       url: fetchUrl,
       completed: {(response: [String: [Track]]) in

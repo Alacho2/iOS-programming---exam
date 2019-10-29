@@ -51,6 +51,13 @@ class SearchController: UIViewController, UISearchBarDelegate {
       failed: {(failRes) in print("Something terrible went wrong")}
   )}
   
+  func makeTransition(identifier: String, data: AlbumDetail){
+    if let vc = self.storyboard?.instantiateViewController(identifier: identifier) as AlbumDetailController? {
+      vc.albumDetail = data
+    self.navigationController?.pushViewController(vc, animated: true)
+    }
+  }
+  
 }
 
 
@@ -76,10 +83,13 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
       cell.searchCover?.image = UIImage(named: "placeholder_art");
     }
     
-    
-    //cell.searchTitle?.text = item.strAlbum;
-    
     return cell;
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let searchItem = self.searchResult[indexPath.row];
+    makeTransition(identifier: "albumdetail", data: searchItem);
+    collectionView.deselectItem(at: indexPath, animated: true);
   }
 
 }
