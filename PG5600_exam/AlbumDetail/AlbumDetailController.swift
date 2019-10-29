@@ -27,7 +27,6 @@ class AlbumDetailController: UIViewController {
   
     if let album = albumDetail {
       self.title = "\(album.strArtist) - \(album.strAlbum)"
-      albumCover.image = UIImage(data: album.imageData!); //placeholder image set in storyboard
       releaseYear.text = album.intYearReleased;
       artistTitle.text = "By \(album.strArtist)";
       albumTitle.text = album.strAlbum;
@@ -62,9 +61,11 @@ extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "TrackItemCell") as! TrackCell;
     cell.trackTitle.text = item.strTrack
+    
     if let duration = Int(item.intDuration) {
       cell.durationLabel.text = duration.msToFormattedMinSec;
     }
+    
     return cell;
   }
   

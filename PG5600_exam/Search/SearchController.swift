@@ -12,16 +12,13 @@ class SearchController: UIViewController, UISearchBarDelegate {
 
   @IBOutlet weak var searchField: UISearchBar!
   @IBOutlet weak var collectionView: UICollectionView!;
-  var searchResult: [AlbumDetail?] = [];
+  var searchResult: [AlbumDetail] = [];
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("You are in search")
-    
     searchField.delegate = self;
-    
-    //collectionView.delegate = self;
-    //collectionView.dataSource = self;
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
   }
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -48,6 +45,8 @@ class SearchController: UIViewController, UISearchBarDelegate {
         }
         
         print(self.searchResult);
+        
+        self.collectionView.reloadData();
         },
       failed: {(failRes) in print("Something terrible went wrong")}
   )}
@@ -55,7 +54,7 @@ class SearchController: UIViewController, UISearchBarDelegate {
 }
 
 
-/*extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1;
   }
@@ -65,10 +64,22 @@ class SearchController: UIViewController, UISearchBarDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    //let item =
+    let item = self.searchResult[indexPath.item];
+    
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCell", for: indexPath) as! SearchItemCell
+    cell.searchAlbum?.text = item.strAlbum;
+    cell.searchArtist?.text = item.strArtist;
+    
+    if let imageUrl = item.strAlbumThumb {
+      cell.searchCover?.kf.setImage(with: URL(string: imageUrl), placeholder: UIImage(named: "placeholder_art"));
+    } else {
+      cell.searchCover?.image = UIImage(named: "placeholder_art");
+    }
+    
+    
+    //cell.searchTitle?.text = item.strAlbum;
+    
+    return cell;
   }
-  
-  
 
 }
- */

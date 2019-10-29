@@ -17,5 +17,6 @@ target 'PG5600_exam' do
   end
   
   pod 'Alamofire', '~> 5.0.0-rc.2'
+  pod 'Kingfisher', '~> 5.9'
 
 end

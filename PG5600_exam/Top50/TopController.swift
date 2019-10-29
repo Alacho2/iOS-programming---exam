@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TopController: UIViewController, UIScrollViewDelegate {
   
@@ -30,6 +31,7 @@ class TopController: UIViewController, UIScrollViewDelegate {
   }
   
   func makeRequest() {
+    
     NetworkHandler().makeRequestWith(
       url: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album",
       completed: {(response: [String: [AlbumDetail]]) in
@@ -82,7 +84,7 @@ extension TopController: UICollectionViewDelegate, UICollectionViewDataSource, U
     let width = view.frame.width;
     
     if(self.switcher.selectedSegmentIndex == 0) {
-      return CGSize(width: (width - 15) / 2, height: 125)
+      return CGSize(width: (width - 15) / 2, height: 150)
     } else {
       return CGSize(width: width, height: 45);
     }
@@ -98,13 +100,18 @@ extension TopController: UICollectionViewDelegate, UICollectionViewDataSource, U
     if (self.switcher.selectedSegmentIndex == 0) {
       
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopItemCell", for: indexPath) as! TopItemCell
-      cell.albumTitle?.text = topItem.strAlbum
-      cell.albumImage?.image = UIImage(data: topItem.imageData!);
+      cell.albumTitle?.text = topItem.strAlbum;
+      cell.albumArtist?.text = topItem.strArtist;
+      
+      if let imageUrl = topItem.strAlbumThumb {
+        cell.albumImage?.kf.setImage(with: URL(string: imageUrl), placeholder: UIImage(named: "placeholder_art"));
+      }
+      
       return cell;
     } else {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompactCell", for: indexPath) as! CompactItemCell
-      cell.albumTitle?.text = topItem.strAlbum
-      cell.artistTitle?.text = topItem.strArtist
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompactCell", for: indexPath) as! CompactItemCell;
+      cell.albumTitle?.text = topItem.strAlbum;
+      cell.artistTitle?.text = topItem.strArtist;
       return cell;
     }
   }
