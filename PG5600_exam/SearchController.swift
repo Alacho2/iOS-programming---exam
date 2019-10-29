@@ -8,36 +8,67 @@
 
 import UIKit
 
-class SearchController: UIViewController {
+class SearchController: UIViewController, UISearchBarDelegate {
 
-  @IBOutlet weak var searchField: UITextField!
+  @IBOutlet weak var searchField: UISearchBar!
+  @IBOutlet weak var collectionView: UICollectionView!;
+  var searchResult: [AlbumDetail?] = [];
   
   override func viewDidLoad() {
     super.viewDidLoad()
     print("You are in search")
     
-    searchField.addTarget(self, action: #selector(textFieldChanged(textField:)), for: .editingChanged)
-    searchTheApi(query: "Thriller");
+    searchField.delegate = self;
+    
+    //collectionView.delegate = self;
+    //collectionView.dataSource = self;
   }
   
-  @objc func textFieldChanged(textField: UITextField){
-    if let textInput = textField.text, textInput.count > 6 {
-      //Fire off a search network request. Offer button that can also search, if text is too short
-      
-      //print(textInput);
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    if searchText.count > 4 {
+      print(searchText)
+      searchTheApi(query: searchText);
     }
   }
   
+  
   func searchTheApi(query: String){
     NetworkHandler().makeRequestWith(url: "https://theaudiodb.com/api/v1/json/195223/searchalbum.php?a=\(query)",
-      completed: {(response: [String: [AlbumDetail]]) in
-        guard let albumArr = response["album"] else {
+      completed: {(response: [String: [AlbumDetail]?]) in
+        guard let searchRes = response["album"] else {
           return;
         }
         
-        print("Got a response", albumArr)
+        guard searchRes != nil else {
+          return;
+        }
+        
+        if let albumArr = searchRes {
+          self.searchResult = albumArr
+        }
+        
+        print(self.searchResult);
         },
       failed: {(failRes) in print("Something terrible went wrong")}
   )}
   
 }
+
+
+/*extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1;
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return searchResult.count;
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    //let item =
+  }
+  
+  
+
+}
+ */

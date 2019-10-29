@@ -29,9 +29,11 @@ struct AlbumDetail: Codable {
     idAlbum = try values.decode(String.self, forKey: .idAlbum);
     idArtist = try values.decode(String.self, forKey: .idArtist);
     strArtist = try values.decode(String.self, forKey: .strArtist);
-    strAlbumThumb = try values.decode(String.self, forKey: .strAlbumThumb);
+    strAlbumThumb = try? values.decode(String.self, forKey: .strAlbumThumb);
     //Let's handle image processing here, so it doesn't happen on the fly for every scroll
-    imageData = try! Data(contentsOf: URL(string: strAlbumThumb!)!)
+    if let strAlbumThumb = strAlbumThumb, strAlbumThumb != "" {
+      imageData = try! Data(contentsOf: URL(string: strAlbumThumb)!)
+    } else { imageData = nil; }
     intYearReleased = try values.decode(String.self, forKey: .intYearReleased)
     strAlbum = try values.decode(String.self, forKey: .strAlbum);
     idLabel = try values.decode(String?.self, forKey: .idLabel);
