@@ -14,10 +14,9 @@ struct AlbumDetail: Codable {
 
 }
 
-struct Track: Codable {
+struct TempTrack: Codable {
   let idArtist, idTrack, intDuration, strArtist, strAlbum, strTrack: String;
   let idAlbum, strGenre: String?;
-  //362000 / 1000 / 60 = minutes seconds
 }
 
 struct SearchAlbum: Codable {

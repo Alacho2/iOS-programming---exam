@@ -11,7 +11,7 @@ import UIKit
 class AlbumDetailController: UIViewController {
   
   var albumDetail: AlbumDetail?
-  var tracks: [Track] = []
+  var tracks: [TempTrack] = []
   @IBOutlet weak var albumCover: UIImageView!
   @IBOutlet weak var albumTitle: UILabel!
   @IBOutlet weak var releaseYear: UILabel!
@@ -39,7 +39,7 @@ class AlbumDetailController: UIViewController {
   func getTrackInfo(fetchUrl: String) {
     NetworkHandler().makeRequestWith(
       url: fetchUrl,
-      completed: {(response: [String: [Track]]) in
+      completed: {(response: [String: [TempTrack]]) in
         guard let trackArray = response["track"] else {
           return
         }
@@ -71,6 +71,14 @@ extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
+    let item = self.tracks[indexPath.row];
+    
+    
+    tableView.deselectRow(at: indexPath, animated: true);
+    let track = Track(context: PersistanceHandler.context);
+    track.strTrack = item.strTrack;
+    track.intDuration = item.intDuration;
+    track.strAlbum = item.strAlbum;
+    PersistanceHandler.saveContext();
   }
 }
