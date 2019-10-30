@@ -23,6 +23,12 @@ class FavController: UIViewController {
     
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated);
+    getDbData();
+    //print("Back in business")
+  }
+  
   func getDbData(){
     let fetchReq: NSFetchRequest<Track> = Track.fetchRequest();
     
@@ -33,12 +39,6 @@ class FavController: UIViewController {
     } catch {
       print("Didn't manage to grab the data");
     }
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated);
-    getDbData();
-    //print("Back in business")
   }
   
   func deleteItem(_ id: NSManagedObject) {
@@ -85,4 +85,20 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
       tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
   }
+}
+
+extension FavController: NSFetchedResultsControllerDelegate {
+  
+  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.beginUpdates();
+  }
+  
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.endUpdates();
+  }
+  
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    
+  }
+  
 }
