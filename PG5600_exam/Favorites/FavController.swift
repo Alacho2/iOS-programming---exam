@@ -21,8 +21,6 @@ class FavController: UIViewController {
     tableView.dataSource = self;
     tableView.delegate = self;
     
-    //getDbData();
-    
   }
   
   func getDbData(){
@@ -83,6 +81,7 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if (editingStyle == .delete) {
       deleteItem(tracks[indexPath.row]);
+      tracks.remove(at: indexPath.row);
       tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
   }

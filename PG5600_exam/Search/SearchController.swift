@@ -23,7 +23,7 @@ class SearchController: UIViewController, UISearchBarDelegate {
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText.count > 4 {
-      print(searchText)
+      //print(searchText)
       searchTheApi(query: searchText);
     }
   }
@@ -35,16 +35,16 @@ class SearchController: UIViewController, UISearchBarDelegate {
         guard let searchRes = response["album"] else {
           return;
         }
-        
+    
         guard searchRes != nil else {
+          self.searchResult = [];
+          self.collectionView.reloadData();
           return;
         }
         
         if let albumArr = searchRes {
           self.searchResult = albumArr
         }
-        
-        print(self.searchResult);
         
         self.collectionView.reloadData();
         },
@@ -67,6 +67,11 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    searchResult.count == 0 ?
+      self.collectionView.setEmptyMessage(message: "There was no responses") :
+      self.collectionView.reset()
+    
     return searchResult.count;
   }
   
