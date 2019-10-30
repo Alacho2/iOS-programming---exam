@@ -73,8 +73,9 @@ extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let item = self.tracks[indexPath.row];
     
-    
     tableView.deselectRow(at: indexPath, animated: true);
+    
+    
     let track = Track(context: PersistanceHandler.context);
     track.strTrack = item.strTrack;
     track.intDuration = item.intDuration;

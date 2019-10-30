@@ -22,8 +22,8 @@ class SearchController: UIViewController, UISearchBarDelegate {
   }
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    if searchText.count > 4 {
-      //print(searchText)
+    if searchText.count >= 2 {
+      let searchText = searchText.replacingOccurrences(of: " ", with: "+");
       searchTheApi(query: searchText);
     }
   }
