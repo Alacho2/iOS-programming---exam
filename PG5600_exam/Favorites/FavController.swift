@@ -15,7 +15,7 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
   
   lazy var fetchedResultsController: NSFetchedResultsController<Track> = {
     let fetchReq = NSFetchRequest<Track>(entityName: "Track");
-    fetchReq.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: false)];
+    fetchReq.sortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)];
     
     let context = PersistanceHandler.context
     
@@ -67,16 +67,7 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
     }
   }
   
-  /*func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.beginUpdates();
-  } */
-  
-  /*func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.endUpdates();
-  } */
-  
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-      //print("\(type)");
     
     switch type {
       case .insert:
@@ -86,6 +77,7 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
       case .move:
         print("Looking for move");
       case .update:
+        print("Looking for update");
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
         configureCell(cell, at: indexPath!)
       @unknown default:
@@ -139,11 +131,14 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     
     func switchRows(surceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
       let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
+      
       let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
       let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
       let storedDestinationObject = context.object(with: fetchedDestinationObject.objectID) as! Track
       //let sourceSort = fetchedSourceObject.sortId
       //let destinationSort = fetchedDestinationObject.sortId
+      //print("\(storedSourceObject.strTrack) to \(destinationIndexPath.row)");
+      //print("\(storedDestinationObject.strTrack) to \(surceIndexPath.row)");
       storedSourceObject.sortId = Int16(destinationIndexPath.row)
       storedDestinationObject.sortId = Int16(surceIndexPath.row)
     }
@@ -169,10 +164,12 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     } else if abs(sourceIndexPath.row - destinationIndexPath.row) == 1 {
         // If the rows were just switched
         switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
-        return
+        //return
+      print("Fired");
     } else if sourceIndexPath.row < destinationIndexPath.row {
+      print("Fired here as well")
         // Move rows upwards
-        let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
+        /*let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
         let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
         
         // iterate over the unmoved rows, which are pushed downwards
@@ -182,10 +179,10 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
         // drag Source-Object upwards
         let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
         let destinationSort = fetchedDestinationObject.sortId
-        storedSourceObject.sortId = destinationSort
+        storedSourceObject.sortId = destinationSort*/
     } else if sourceIndexPath.row > destinationIndexPath.row {
         // Move rows downwards
-        let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
+        /*let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
         let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
         
         // iterate over the unmoved rows, which are pushed upwards
@@ -195,7 +192,7 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
         // Source-Object is moved downwards
         let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
         let destinationSort = fetchedDestinationObject.sortId
-        storedSourceObject.sortId = destinationSort
+        storedSourceObject.sortId = destinationSort */
     }
     // Save the current Context
     PersistanceHandler.saveContext();
