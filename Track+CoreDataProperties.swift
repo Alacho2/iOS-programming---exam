@@ -25,6 +25,7 @@ extension Track {
     @NSManaged public var strArtist: String?
     @NSManaged public var strGenre: String?
     @NSManaged public var strTrack: String?
+    @NSManaged public var createdAt: Date?
     @NSManaged public var sortId: Int16
 
 }

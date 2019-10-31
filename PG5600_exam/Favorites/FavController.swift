@@ -67,23 +67,16 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
     }
   }
   
-  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+  /*func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     tableView.beginUpdates();
-  }
+  } */
   
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+  /*func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     tableView.endUpdates();
-  }
+  } */
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-      print("\(type)");
-    /*if type == .insert {
-      tableView.insertRows(at: [newIndexPath!], with: .automatic)
-    }
-    
-    if type == NSFetchedResultsChangeType.move {
-      print("Moved \(indexPath?.row) to \(newIndexPath?.row)");
-    } */
+      //print("\(type)");
     
     switch type {
       case .insert:
@@ -93,15 +86,22 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
       case .move:
         print("Looking for move");
       case .update:
-        
-      print("Looking for update")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
+        configureCell(cell, at: indexPath!)
       @unknown default:
         print("Looking for default")
     }
+  }
+  
+  func configureCell(_ cell: FavItemCell, at indexPath: IndexPath) {
+    let item = fetchedResultsController.object(at: indexPath)
+
+    cell.artistTitle?.text = item.strAlbum;
+    cell.trackTitle?.text = item.strTrack;
     
-    /*if type == .delete {
-      tableView.deleteRows(at: [indexPath!], with: .automatic)
-    } */
+    if let duration = item.intDuration {
+      cell.duration?.text = Int(duration)?.msToFormattedMinSec
+    }
   }
 
 }
@@ -135,9 +135,6 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
     let movedObject = fetchedResultsController.object(at: sourceIndexPath)
-    
-      //headlines.remove(at: sourceIndexPath.row)
-      //headlines.insert(movedObject, at: destinationIndexPath.row)
     let context = PersistanceHandler.context;
     
     func switchRows(surceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
@@ -145,20 +142,25 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
       let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
       let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
       let storedDestinationObject = context.object(with: fetchedDestinationObject.objectID) as! Track
-      let sourceSort = fetchedSourceObject.sortId
-      let destinationSort = fetchedDestinationObject.sortId
-      storedSourceObject.sortId = destinationSort
-      storedDestinationObject.sortId = sourceSort
+      //let sourceSort = fetchedSourceObject.sortId
+      //let destinationSort = fetchedDestinationObject.sortId
+      storedSourceObject.sortId = Int16(destinationIndexPath.row)
+      storedDestinationObject.sortId = Int16(surceIndexPath.row)
     }
     
     func incrementSortIndex(forOriginRow origin: Int, destinationRow destination: Int) {
-        let mutableSourceIndex = IndexPath(row: origin, section: destinationIndexPath.section)
-        let mutableDestinationIndex = IndexPath(row: destination, section: destinationIndexPath.section)
-        let fetchedSourceObject = fetchedResultsController.object(at: mutableSourceIndex)
-        let fetchedDestinationObject = fetchedResultsController.object(at: mutableDestinationIndex)
-        let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
-        let destinationSort = fetchedDestinationObject.sortId
-        storedSourceObject.sortId = destinationSort
+      let mutableSourceIndex = IndexPath(row: origin, section: destinationIndexPath.section)
+      let mutableDestinationIndex = IndexPath(row: destination, section: destinationIndexPath.section)
+      let fetchedSourceObject = fetchedResultsController.object(at: mutableSourceIndex)
+      let fetchedDestinationObject = fetchedResultsController.object(at: mutableDestinationIndex)
+      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
+      //let destinationSort = fetchedDestinationObject.sortId
+      print("\(storedSourceObject.strTrack) to \(destination)");
+      //print("\(fetchedDestinationObject.strTrack) to \(origin)");
+      fetchedDestinationObject.sortId = Int16(destination);
+      
+      //storedSourceObject.sortId = Int16(destination)
+      //print(origin);
     }
     
     if sourceIndexPath == destinationIndexPath {
@@ -213,34 +215,4 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     }
   }
   
-  
 }
-
-/*extension FavController: NSFetchedResultsControllerDelegate {
-  
-  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.beginUpdates();
-  }
-  
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.endUpdates();
-  }
-  
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    
-    switch type {
-
-      case .insert:
-        print("Trying to insert");
-      case .delete:
-        print("Trying to delete");
-      case .move:
-        print("Trying to move");
-      case .update:
-        print("Trying to updatee");
-      @unknown default:
-        print("Controller error in didChange");
-    }
-  }
-  
-} */

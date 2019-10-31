@@ -75,11 +75,11 @@ extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
     
     tableView.deselectRow(at: indexPath, animated: true);
     
-    
     let track = Track(context: PersistanceHandler.context);
     track.strTrack = item.strTrack;
     track.intDuration = item.intDuration;
     track.strAlbum = item.strAlbum;
+    track.sortId = Int16(0);
     PersistanceHandler.saveContext();
   }
 }
