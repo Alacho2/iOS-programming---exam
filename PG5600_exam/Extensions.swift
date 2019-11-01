@@ -55,3 +55,14 @@ extension UITableView {
   }
   
 }
+
+/*
+ Code found on StackOverFlow at 1st November, 16:51
+ https://stackoverflow.com/questions/27624331/unique-values-of-array-in-swift
+*/
+extension Sequence where Iterator.Element: Hashable {
+  func unique() -> [Iterator.Element] {
+    var seen: [Iterator.Element: Bool] = [:]
+    return self.filter { seen.updateValue(true, forKey: $0) == nil }
+  }
+}

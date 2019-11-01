@@ -12,6 +12,9 @@ import CoreData
 class FavController: UIViewController, NSFetchedResultsControllerDelegate {
   
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var reorderButton: UIButton!
+  var suggestionsArray: [String] = [];
   
   lazy var fetchedResultsController: NSFetchedResultsController<Track> = {
     let fetchReq = NSFetchRequest<Track>(entityName: "Track");
@@ -28,12 +31,28 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
     return frc
   }()
   
+  @IBAction func changeEditing(_ sender: UIButton) {
+    if tableView.isEditing {
+      reorderButton.setTitle("Reorder", for: .normal)
+      tableView.isEditing = false;
+    } else {
+      reorderButton.setTitle("Finish", for: .normal)
+      tableView.isEditing = true;
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     tableView.dataSource = self;
     tableView.delegate = self;
-    tableView.isEditing = true;
+    collectionView.dataSource = self;
+    collectionView.delegate = self;
+  }
+  
+  func getSimilarArtists(){
+    
+    //NetworkHandler().makeRequestWith(ur)
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -48,6 +67,20 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
       if fetchedResultsController.sections?[0].objects as? [Track] != nil {
         self.tableView.reloadData();
       }
+      
+      if let similarArtists = fetchedResultsController.sections?[0].objects as? [Track] {
+      
+        suggestionsArray = similarArtists.map{ artist in
+          if let title = artist.strArtist {
+            return title.replacingOccurrences(of: " ", with: "+")
+          }
+          return ""
+        };
+        
+        let string = suggestionsArray.unique().joined(separator: ",")
+        print(string);
+      }
+    
 
     } catch let err {
       print("Something went terribly wrong \(err)")
@@ -94,89 +127,15 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
 
 }
 
-extension FavController: UITableViewDataSource, UITableViewDelegate {
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let resultCount = fetchedResultsController.sections?[0].numberOfObjects {
-      resultCount == 0 ?
-        self.tableView.setEmptyMessage(message: "There was no responses") :
-        self.tableView.reset()
-    
-      return resultCount;
-    }
-    return 0;
+extension FavController : UICollectionViewDataSource, UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 0
   }
   
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 80;
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let item = fetchedResultsController.object(at: indexPath);
-    
-    let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
-    cell.artistTitle?.text = item.strAlbum;
-    cell.trackTitle?.text = item.strTrack;
-    if let duration = item.intDuration {
-      cell.duration?.text = Int(duration)?.msToFormattedMinSec
-    }
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = UICollectionViewCell()
     return cell;
   }
   
-  func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-    let movedObject = fetchedResultsController.object(at: sourceIndexPath)
-    let context = PersistanceHandler.context;
-    
-    func switchRows(surceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
-      let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
-      let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
-      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
-      let storedDestinationObject = context.object(with: fetchedDestinationObject.objectID) as! Track
-      storedSourceObject.sortId = Int16(destinationIndexPath.row)
-      storedDestinationObject.sortId = Int16(surceIndexPath.row)
-    }
-    
-    func changeSortIndex(for origin: Int, by: Int, up: Bool) {
-      let fetchedSourceObject = fetchedResultsController.object(at: IndexPath(row: origin, section: 0));
-      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track;
-      storedSourceObject.sortId = Int16(destinationIndexPath.row)
-      
-      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: by) {
-        let fetchedObjectToMove = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
-        let storedObjectToMove = context.object(with: fetchedObjectToMove.objectID) as! Track;
-        if up { storedObjectToMove.sortId = Int16(index + 1) }
-        else { storedObjectToMove.sortId = Int16(index - 1) }
-      }
-    }
-    
-    if sourceIndexPath == destinationIndexPath {
-        return
-    } else if abs(sourceIndexPath.row - destinationIndexPath.row) == 1 {
-      // From one row to over/below
-      switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
-      
-    } else if sourceIndexPath.row < destinationIndexPath.row {
-      // Move rows up
-      changeSortIndex(for: sourceIndexPath.row, by: -1, up: false);
-    } else if sourceIndexPath.row > destinationIndexPath.row {
-      // Move rows down
-      changeSortIndex(for: sourceIndexPath.row, by: +1, up: true);
-    }
-    // Save to the database
-    PersistanceHandler.saveContext();
-    
-  }
-  
-  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    return true
-  }
-  
-  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    if (editingStyle == .delete) {
-      
-      displayAlertBeforeDelete(error: "Delete this?", at: indexPath)
-  
-    }
-  }
   
 }
