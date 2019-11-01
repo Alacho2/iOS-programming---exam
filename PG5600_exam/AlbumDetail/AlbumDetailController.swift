@@ -31,7 +31,7 @@ class AlbumDetailController: UIViewController {
       artistTitle.text = "By \(album.strArtist)";
       albumTitle.text = album.strAlbum;
       if let cover = album.strAlbumThumb {
-        albumCover.kf.setImage(with: URL(string: cover));
+        albumCover.kf.setImage(with: URL(string: cover), placeholder: UIImage(named: "placeholder_art"));
       }
     }
   }

@@ -47,6 +47,8 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
     do {
       try fetchedResultsController.performFetch()
       
+      //fetchedResultsController.fetchedObjects?.forEach{item in print(item.sortId)}
+      
       if fetchedResultsController.sections?[0].objects as? [Track] != nil {
         self.tableView.reloadData();
       }
@@ -76,10 +78,13 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
         print("Looking for delete");
       case .move:
         print("Looking for move");
+        //tableView.insertRows(at: [newIndexPath!], with: .fade);
+      //tableView.deleteRows(at: [newIndexPath!], with: .fade)
       case .update:
         print("Looking for update");
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
-        configureCell(cell, at: indexPath!)
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
+      
+        //configureCell(cell, at: indexPath!)
       @unknown default:
         print("Looking for default")
     }
@@ -131,68 +136,55 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     
     func switchRows(surceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
       let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
-      
       let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
       let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
       let storedDestinationObject = context.object(with: fetchedDestinationObject.objectID) as! Track
-      //let sourceSort = fetchedSourceObject.sortId
-      //let destinationSort = fetchedDestinationObject.sortId
-      //print("\(storedSourceObject.strTrack) to \(destinationIndexPath.row)");
-      //print("\(storedDestinationObject.strTrack) to \(surceIndexPath.row)");
       storedSourceObject.sortId = Int16(destinationIndexPath.row)
       storedDestinationObject.sortId = Int16(surceIndexPath.row)
     }
     
-    func incrementSortIndex(forOriginRow origin: Int, destinationRow destination: Int) {
-      let mutableSourceIndex = IndexPath(row: origin, section: destinationIndexPath.section)
-      let mutableDestinationIndex = IndexPath(row: destination, section: destinationIndexPath.section)
-      let fetchedSourceObject = fetchedResultsController.object(at: mutableSourceIndex)
-      let fetchedDestinationObject = fetchedResultsController.object(at: mutableDestinationIndex)
-      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
-      //let destinationSort = fetchedDestinationObject.sortId
-      print("\(storedSourceObject.strTrack) to \(destination)");
-      //print("\(fetchedDestinationObject.strTrack) to \(origin)");
-      fetchedDestinationObject.sortId = Int16(destination);
+    func incrementSortIndex(forOriginRow origin: Int) {
+      let fetchedSourceObject = fetchedResultsController.object(at: IndexPath(row: origin, section: 0));
+      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track;
+      storedSourceObject.sortId = Int16(destinationIndexPath.row)
       
-      //storedSourceObject.sortId = Int16(destination)
-      //print(origin);
+      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: -1) {
+        let fetchedObjectToMove = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
+        //print(fetchedObjectToMove.strTrack);
+        let storedObjectToMove = context.object(with: fetchedObjectToMove.objectID) as! Track;
+        storedObjectToMove.sortId = Int16(index - 1);
+      }
+    }
+    
+    func decrementSortIndex(forOriginRow destination: Int) {
+      let fetchedSourceObject = fetchedResultsController.object(at: IndexPath(row: destination, section: 0));
+      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track;
+      storedSourceObject.sortId = Int16(destinationIndexPath.row)
+      
+      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: +1) {
+        let fetchedObjectToMove = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
+        //print(fetchedObjectToMove.strTrack);
+        let storedObjectToMove = context.object(with: fetchedObjectToMove.objectID) as! Track;
+        storedObjectToMove.sortId = Int16(index + 1);
+      }
     }
     
     if sourceIndexPath == destinationIndexPath {
         // Nothing to do here, drag-and-drop and both rows are the same.
         return
     } else if abs(sourceIndexPath.row - destinationIndexPath.row) == 1 {
-        // If the rows were just switched
-        switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
-        //return
-      print("Fired");
+      // If the rows were just switched
+      switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
+      
     } else if sourceIndexPath.row < destinationIndexPath.row {
-      print("Fired here as well")
-        // Move rows upwards
-        /*let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
-        let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
-        
-        // iterate over the unmoved rows, which are pushed downwards
-        for row in sourceIndexPath.row + 1 ..< destinationIndexPath.row {
-            incrementSortIndex(forOriginRow: row, destinationRow: row - 1)
-        }
-        // drag Source-Object upwards
-        let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
-        let destinationSort = fetchedDestinationObject.sortId
-        storedSourceObject.sortId = destinationSort*/
+      // Move rows upwards
+      
+      incrementSortIndex(forOriginRow: sourceIndexPath.row);
+      
+      
     } else if sourceIndexPath.row > destinationIndexPath.row {
         // Move rows downwards
-        /*let fetchedSourceObject = fetchedResultsController.object(at: sourceIndexPath)
-        let fetchedDestinationObject = fetchedResultsController.object(at: destinationIndexPath)
-        
-        // iterate over the unmoved rows, which are pushed upwards
-        for row in destinationIndexPath.row ..< sourceIndexPath.row {
-            incrementSortIndex(forOriginRow: row, destinationRow: row + 1)
-        }
-        // Source-Object is moved downwards
-        let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track
-        let destinationSort = fetchedDestinationObject.sortId
-        storedSourceObject.sortId = destinationSort */
+      decrementSortIndex(forOriginRow: sourceIndexPath.row);
     }
     // Save the current Context
     PersistanceHandler.saveContext();

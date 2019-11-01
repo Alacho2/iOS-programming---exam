@@ -34,6 +34,7 @@ class PersistanceHandler {
     let context = persistentContainer.viewContext;
     if context.hasChanges {
       do {
+        print("Saving");
         try context.save()
       } catch {
         let nserror = error as NSError
