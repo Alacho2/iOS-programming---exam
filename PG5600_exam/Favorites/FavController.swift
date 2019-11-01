@@ -14,7 +14,7 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var reorderButton: UIButton!
-  var suggestionsArray: [String] = [];
+  var searchString = "";
   
   lazy var fetchedResultsController: NSFetchedResultsController<Track> = {
     let fetchReq = NSFetchRequest<Track>(entityName: "Track");
@@ -50,14 +50,24 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
     collectionView.delegate = self;
   }
   
-  func getSimilarArtists(){
-    
-    //NetworkHandler().makeRequestWith(ur)
+  func getSimilarArtists(url: String){
+    NetworkHandler().makeRequestWith(
+      url: url,
+      completed: {(response: [String: Similar]) in
+      guard let resultArray = response["Similar"] else {
+        return;
+      }
+        
+      print(resultArray.Results)
+  
+    }, failed: {(failRes) in print(failRes)})
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated);
     getDbData();
+    
+    getSimilarArtists(url: "https://tastedive.com/api/similar?q=\(searchString)");
   }
   
   func getDbData(){
@@ -70,15 +80,13 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
       
       if let similarArtists = fetchedResultsController.sections?[0].objects as? [Track] {
       
-        suggestionsArray = similarArtists.map{ artist in
+        searchString = similarArtists.map{ artist in
           if let title = artist.strArtist {
             return title.replacingOccurrences(of: " ", with: "+")
           }
           return ""
-        };
+        }.unique().joined(separator: ",")
         
-        let string = suggestionsArray.unique().joined(separator: ",")
-        print(string);
       }
     
 

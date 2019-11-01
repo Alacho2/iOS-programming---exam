@@ -11,7 +11,6 @@ import Foundation
 struct AlbumDetail: Codable {
   let idAlbum, idArtist, strArtist, strAlbum, intYearReleased: String;
   let idLabel, strAlbumThumb: String?;
-
 }
 
 struct TempTrack: Codable {
@@ -23,3 +22,12 @@ struct SearchAlbum: Codable {
   let idArtist, idAlbum, strAlbum, intYearReleased, strArtist: String;
   let strAlbumThumb: String?;
 }
+
+struct Result: Codable {
+  let Name: String;
+}
+
+struct Similar: Codable {
+  let Info, Results: [Result]
+}
+
