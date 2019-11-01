@@ -25,9 +25,22 @@ struct SearchAlbum: Codable {
 
 struct Result: Codable {
   let Name: String;
+  // There is a type value, for now we won't care about that.
 }
 
 struct Similar: Codable {
-  let Info, Results: [Result]
+  let info, results: [Result]
+  
+  enum CodingKeys: String, CodingKey {
+    // Cuz big letter variables look stupid in code
+    case info = "Info"
+    case results = "Results"
+  }
+  
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self);
+    self.info = try container.decode([Result].self, forKey: .info);
+    self.results = try container.decode([Result].self, forKey: .results)
+  }
 }
 

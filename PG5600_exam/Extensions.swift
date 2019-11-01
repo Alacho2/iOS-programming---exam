@@ -46,7 +46,7 @@ extension UITableView {
     label.numberOfLines = 0;
     label.textAlignment = .center;
     label.sizeToFit()
-    
+    self.separatorStyle = .none
     self.backgroundView = label
   }
   
@@ -57,7 +57,7 @@ extension UITableView {
 }
 
 /*
- Code found on StackOverFlow at 1st November, 16:51
+ Code found on Stack Overflow at 1st November, 16:51
  https://stackoverflow.com/questions/27624331/unique-values-of-array-in-swift
 */
 extension Sequence where Iterator.Element: Hashable {

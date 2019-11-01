@@ -14,7 +14,7 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let resultCount = fetchedResultsController.sections?[0].numberOfObjects {
       resultCount == 0 ?
-        self.tableView.setEmptyMessage(message: "There was no responses") :
+        self.tableView.setEmptyMessage(message: "You don't have any favorites :("):
         self.tableView.reset()
     
       return resultCount;
