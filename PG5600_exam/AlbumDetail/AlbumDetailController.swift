@@ -45,7 +45,6 @@ class AlbumDetailController: UIViewController {
         }
         self.tracks = trackArray;
         self.tableView.reloadData();
-        
     },
     failed: {(failRes) in print("Something went terribly wrong")})
     }
@@ -79,7 +78,7 @@ extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
     track.strTrack = item.strTrack;
     track.intDuration = item.intDuration;
     track.strAlbum = item.strAlbum;
-    track.sortId = Int16(0);
+    //track.sortId = Int16(0);
     PersistanceHandler.saveContext();
   }
 }

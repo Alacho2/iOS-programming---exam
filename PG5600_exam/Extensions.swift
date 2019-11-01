@@ -36,3 +36,22 @@ extension UICollectionView {
   }
   
 }
+
+extension UITableView {
+  
+  func setEmptyMessage(message: String) {
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height));
+    label.text = message;
+    label.textColor = .black;
+    label.numberOfLines = 0;
+    label.textAlignment = .center;
+    label.sizeToFit()
+    
+    self.backgroundView = label
+  }
+  
+  func reset() {
+    self.backgroundView = nil;
+  }
+  
+}

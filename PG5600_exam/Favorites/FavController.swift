@@ -30,7 +30,6 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("You are in fav");
     
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -40,21 +39,16 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated);
     getDbData();
-    //print("Back in business")
   }
   
   func getDbData(){
     do {
-      try fetchedResultsController.performFetch()
-      
-      //fetchedResultsController.fetchedObjects?.forEach{item in print(item.sortId)}
+      try fetchedResultsController.performFetch();
       
       if fetchedResultsController.sections?[0].objects as? [Track] != nil {
         self.tableView.reloadData();
       }
-      
-      //print(type(of: fetchedResultsController.fetchedObjects))
-      //print(fetchedResultsController.object(at: IndexPath(item: 0, section: 0)))
+
     } catch let err {
       print("Something went terribly wrong \(err)")
     }
@@ -70,35 +64,41 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    
     switch type {
+      
       case .insert:
-        print("Looking for insert");
+        print("Insert");
+        if let newIndexPath  = newIndexPath {
+          self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
       case .delete:
         print("Looking for delete");
       case .move:
-        print("Looking for move");
-        //tableView.insertRows(at: [newIndexPath!], with: .fade);
-      //tableView.deleteRows(at: [newIndexPath!], with: .fade)
+        print("Move");
       case .update:
-        print("Looking for update");
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
-      
-        //configureCell(cell, at: indexPath!)
+        print("Update");
       @unknown default:
-        print("Looking for default")
+        print("Default");
     }
+    tableView.reloadSections(IndexSet(integer: 0), with: .fade)
   }
   
-  func configureCell(_ cell: FavItemCell, at indexPath: IndexPath) {
-    let item = fetchedResultsController.object(at: indexPath)
-
-    cell.artistTitle?.text = item.strAlbum;
-    cell.trackTitle?.text = item.strTrack;
+  func displayAlertBeforeDelete(error: String, at: IndexPath){
+    let alert = UIAlertController(title: "You sure?", message: error, preferredStyle: .alert)
     
-    if let duration = item.intDuration {
-      cell.duration?.text = Int(duration)?.msToFormattedMinSec
-    }
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){
+        UIAlertAction in}
+    let confirmAction = UIAlertAction(title: "Confirm", style: .destructive, handler: {
+      UIAlertAction in
+      let fetchedResult = self.fetchedResultsController.object(at: at);
+      self.fetchedResultsController.managedObjectContext.delete(fetchedResult);
+      PersistanceHandler.saveContext();
+      
+    });
+    alert.addAction(confirmAction)
+    alert.addAction(cancelAction)
+    
+    self.present(alert, animated: true);
   }
 
 }
@@ -106,10 +106,13 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
 extension FavController: UITableViewDataSource, UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let count = fetchedResultsController.sections?[0].numberOfObjects {
-      return count;
-    }
+    if let resultCount = fetchedResultsController.sections?[0].numberOfObjects {
+      resultCount == 0 ?
+        self.tableView.setEmptyMessage(message: "There was no responses") :
+        self.tableView.reset()
     
+      return resultCount;
+    }
     return 0;
   }
   
@@ -126,7 +129,6 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     if let duration = item.intDuration {
       cell.duration?.text = Int(duration)?.msToFormattedMinSec
     }
-    
     return cell;
   }
   
@@ -143,50 +145,33 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
       storedDestinationObject.sortId = Int16(surceIndexPath.row)
     }
     
-    func incrementSortIndex(forOriginRow origin: Int) {
+    func changeSortIndex(for origin: Int, by: Int, up: Bool) {
       let fetchedSourceObject = fetchedResultsController.object(at: IndexPath(row: origin, section: 0));
       let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track;
       storedSourceObject.sortId = Int16(destinationIndexPath.row)
       
-      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: -1) {
+      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: by) {
         let fetchedObjectToMove = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
-        //print(fetchedObjectToMove.strTrack);
         let storedObjectToMove = context.object(with: fetchedObjectToMove.objectID) as! Track;
-        storedObjectToMove.sortId = Int16(index - 1);
-      }
-    }
-    
-    func decrementSortIndex(forOriginRow destination: Int) {
-      let fetchedSourceObject = fetchedResultsController.object(at: IndexPath(row: destination, section: 0));
-      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track;
-      storedSourceObject.sortId = Int16(destinationIndexPath.row)
-      
-      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: +1) {
-        let fetchedObjectToMove = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
-        //print(fetchedObjectToMove.strTrack);
-        let storedObjectToMove = context.object(with: fetchedObjectToMove.objectID) as! Track;
-        storedObjectToMove.sortId = Int16(index + 1);
+        if up { storedObjectToMove.sortId = Int16(index + 1) }
+        else { storedObjectToMove.sortId = Int16(index - 1) }
       }
     }
     
     if sourceIndexPath == destinationIndexPath {
-        // Nothing to do here, drag-and-drop and both rows are the same.
         return
     } else if abs(sourceIndexPath.row - destinationIndexPath.row) == 1 {
-      // If the rows were just switched
+      // From one row to over/below
       switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
       
     } else if sourceIndexPath.row < destinationIndexPath.row {
-      // Move rows upwards
-      
-      incrementSortIndex(forOriginRow: sourceIndexPath.row);
-      
-      
+      // Move rows up
+      changeSortIndex(for: sourceIndexPath.row, by: -1, up: false);
     } else if sourceIndexPath.row > destinationIndexPath.row {
-        // Move rows downwards
-      decrementSortIndex(forOriginRow: sourceIndexPath.row);
+      // Move rows down
+      changeSortIndex(for: sourceIndexPath.row, by: +1, up: true);
     }
-    // Save the current Context
+    // Save to the database
     PersistanceHandler.saveContext();
     
   }
@@ -198,9 +183,8 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if (editingStyle == .delete) {
       
-      //deleteItem(tracks[indexPath.row]);
-      tableView.deleteRows(at: [indexPath], with: .automatic)
-      //tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+      displayAlertBeforeDelete(error: "Delete this?", at: indexPath)
+  
     }
   }
   
