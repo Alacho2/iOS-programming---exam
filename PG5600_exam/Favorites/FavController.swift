@@ -54,15 +54,6 @@ class FavController: UIViewController, NSFetchedResultsControllerDelegate {
     }
   }
   
-  func deleteItem(_ id: NSManagedObject) {
-    do {
-      PersistanceHandler.context.delete(id);
-      try PersistanceHandler.context.save()
-    } catch {
-      print("Couldn't delete the item");
-    }
-  }
-  
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     switch type {
       
