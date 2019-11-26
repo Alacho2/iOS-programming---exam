@@ -59,7 +59,7 @@ class FavController: UIViewController {
   func getSimilarArtists(){
     if searchString != "" {
     NetworkHandler().makeRequestWith(
-      url: "https://tastedive.com/api/similar?k=348909-Examapp-5O0FDDN1&q=\(searchString)",
+      url: "https://tastedive.com/api/similar?k=348909-Examapp-5O0FDDN1&type=music&q=\(searchString)",
       completed: {(response: [String: Similar]) in
         guard let resultArray = response["Similar"] else {
           return;
@@ -95,22 +95,25 @@ class FavController: UIViewController {
     // Let's make sure that we're only searching for the artist ONE time
     searchString = similarArtists.map{ artist in
       if let title = artist.strArtist {
-        return title.replacingOccurrences(of: " ", with: "+")
+        return title
+          .replacingOccurrences(of: "&", with: "and")
+          .replacingOccurrences(of: " ", with: "+")
       }
       return ""
     }.unique().joined(separator: ",")
+    print(searchString)
     getSimilarArtists();
   }
 
   
-  func displayAlertBeforeDelete(error: String, at: IndexPath){
+  func displayAlertBeforeDelete(error: String, at index: IndexPath){
     let alert = UIAlertController(title: "You sure?", message: error, preferredStyle: .alert)
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){
         UIAlertAction in}
     let confirmAction = UIAlertAction(title: "Confirm", style: .destructive, handler: {
       UIAlertAction in
-      let fetchedResult = self.fetchedResultsController.object(at: at);
+      let fetchedResult = self.fetchedResultsController.object(at: index);
       self.fetchedResultsController.managedObjectContext.delete(fetchedResult);
       PersistanceHandler.saveContext();
       

@@ -21,6 +21,7 @@ class SearchController: UIViewController, UISearchBarDelegate {
     collectionView.dataSource = self;
   }
   
+  
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     //if searchText.count >= 2 {
       let searchText = searchText.replacingOccurrences(of: " ", with: "+");
