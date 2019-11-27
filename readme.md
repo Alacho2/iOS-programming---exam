@@ -1,4 +1,4 @@
-##PG5600 exam - iOS Programming
+## PG5600 exam - iOS Programming
 Candidate number: 5038
 
 Xcode version: 11.2.1
@@ -11,7 +11,7 @@ through music based on a public API, show a Top 50 list of albums from the same 
 view of the albums music, allow the user to rearrange the tracks in the underlying database, and 
 provide recommended artists based on the users favorite music.
 
-###Highlights of the exam include
+### Highlights of the exam include
 * A network call to fetch data, based on generics that is usable in any situation, whatever data
 the response might contain. (Write once, run anywhere).
 * A tableview sorting the underlying tracks in Core Data, allowing the user to make a top list
@@ -21,10 +21,10 @@ API for caching image.
 * A simple persistence handler to avoid having to find the AppDelegate for each time we're
 accessing the database.
 
-###Pods used
+### Pods used
 In order to make the exam as good as possible, I needed to include two libraries in use.
 
-#####Kingfisher
+##### Kingfisher
 Kingfisher is a handler library for downloading and caching images. In this case it's used
 because Apple doesn't provide an API for caching images. In the Favorite controller, we need
 to process 50 high res images to make the list. 
@@ -41,7 +41,7 @@ get a simple placeholder for images not existing.
 This con of Kingfisher is that it writes the high res image to the disk (and to memory),
 and in some cases this might end up consuming unnecessary amounts of storage.
 
-####Alamofire
+#### Alamofire
 Networks requests are important. They are high targets of attacks and vulnerable to hackers 
 and malicious people. That's why I decided to use Alamofire for handling networks requests.
 By using a sophisticated open source library, we're getting a higher chance of removing
@@ -53,7 +53,7 @@ give away a lot of control to writing network requests and we're including a lib
 for very little code. Even though we can write extensions to further increase our own
 control over the code running, we can't guarantee it fully.
 
-####The bad
+#### The bad
 I think it's good that we can agree on one thing. NSFetchedResultsControllerDelegate is
 not working as it should in iOS 13. Once we've established that, you'll see the beauty in
 my way of updating the sortId for the core data. 
@@ -69,7 +69,7 @@ from scratch.
 So dear examiner, I welcome you to attempt to implement the .update and .move cases for the
 NSFetchedResultsControllerDelegate to see if you can outsmart Apple. :) 
 
-####The grade
+#### The grade
 It's rare that I ever try to grade myself, but I feel, given the circumstances, that I could
 give it a try. Given everything I've implemented, and how I have implemented it, and solved
 all the tasks for the exam, I'd grade myself with a B or an A.
