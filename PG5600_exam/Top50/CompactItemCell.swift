@@ -10,6 +10,7 @@ import UIKit
 
 class CompactItemCell: UICollectionViewCell {
   
+  @IBOutlet weak var albumImage: UIImageView!
   @IBOutlet weak var albumTitle: UILabel!
   @IBOutlet weak var artistTitle: UILabel!
 }

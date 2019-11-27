@@ -47,7 +47,7 @@ class AlbumDetailController: UIViewController {
         self.tableView.reloadData();
     },
     failed: {(failRes) in print("Something went terribly wrong")})
-    }
+  }
 }
 
 extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {

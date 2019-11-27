@@ -31,7 +31,6 @@ class TopController: UIViewController, UIScrollViewDelegate {
   }
   
   func makeRequest() {
-    
     NetworkHandler().makeRequestWith(
       url: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album",
       completed: {(response: [String: [AlbumDetail]]) in
@@ -112,6 +111,9 @@ extension TopController: UICollectionViewDelegate, UICollectionViewDataSource, U
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompactCell", for: indexPath) as! CompactItemCell;
       cell.albumTitle?.text = topItem.strAlbum;
       cell.artistTitle?.text = topItem.strArtist;
+      if let imageUrl = topItem.strAlbumThumb {
+        cell.albumImage?.kf.setImage(with: URL(string: imageUrl), placeholder: UIImage(named: "placeholder_art"));
+      }
       return cell;
     }
   }
