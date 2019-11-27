@@ -69,7 +69,6 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     } else if abs(sourceIndexPath.row - destinationIndexPath.row) == 1 {
       // From one row to over/below
       switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
-      
     } else if sourceIndexPath.row < destinationIndexPath.row {
       // Move rows up
       changeSortIndex(for: sourceIndexPath.row, by: -1, up: false);
