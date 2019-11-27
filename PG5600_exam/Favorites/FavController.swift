@@ -32,16 +32,6 @@ class FavController: UIViewController {
     return frc
   }()
   
-  @IBAction func changeEditing(_ sender: UIButton) {
-    if tableView.isEditing {
-      reorderButton.setTitle("Reorder", for: .normal)
-      tableView.isEditing = false;
-    } else {
-      reorderButton.setTitle("Finish", for: .normal)
-      tableView.isEditing = true;
-    }
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -54,6 +44,16 @@ class FavController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated);
     getDbData();
+  }
+  
+  @IBAction func changeEditing(_ sender: UIButton) {
+    if tableView.isEditing {
+      reorderButton.setTitle("Reorder", for: .normal)
+      tableView.isEditing = false;
+    } else {
+      reorderButton.setTitle("Finish", for: .normal)
+      tableView.isEditing = true;
+    }
   }
   
   func getSimilarArtists(){
