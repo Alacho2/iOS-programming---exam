@@ -29,8 +29,6 @@
 		44EF7DF823539D5D00581152 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44EF7DF623539D5D00581152 /* Main.storyboard */; };
 		44EF7DFA23539D6000581152 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44EF7DF923539D6000581152 /* Assets.xcassets */; };
 		44EF7DFD23539D6000581152 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44EF7DFB23539D6000581152 /* LaunchScreen.storyboard */; };
-		44EF7E0823539D6100581152 /* PG5600_examTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EF7E0723539D6100581152 /* PG5600_examTests.swift */; };
-		44EF7E1323539D6100581152 /* PG5600_examUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EF7E1223539D6100581152 /* PG5600_examUITests.swift */; };
 		44F1529323688F99002FC1EF /* FavItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F1529223688F99002FC1EF /* FavItemCell.swift */; };
 		7C79489CBE894FA57B945C47 /* Pods_PG5600_exam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6EC58BE927C60859AEB7542 /* Pods_PG5600_exam.framework */; };
 		D88A48C50EEC1BEBB33C6646 /* Pods_PG5600_exam_PG5600_examUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C091AA485708173C1D20E390 /* Pods_PG5600_exam_PG5600_examUITests.framework */; };
@@ -82,11 +80,7 @@
 		44EF7DFC23539D6000581152 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44EF7DFE23539D6000581152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44EF7E0323539D6100581152 /* PG5600_examTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PG5600_examTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		44EF7E0723539D6100581152 /* PG5600_examTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PG5600_examTests.swift; sourceTree = "<group>"; };
-		44EF7E0923539D6100581152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44EF7E0E23539D6100581152 /* PG5600_examUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PG5600_examUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		44EF7E1223539D6100581152 /* PG5600_examUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PG5600_examUITests.swift; sourceTree = "<group>"; };
-		44EF7E1423539D6100581152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F1529223688F99002FC1EF /* FavItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavItemCell.swift; sourceTree = "<group>"; };
 		7F7335A9D587F7C76D884A7A /* Pods-PG5600_examTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_examTests.debug.xcconfig"; path = "Target Support Files/Pods-PG5600_examTests/Pods-PG5600_examTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B3D4FE55FE74FAA94CAA739 /* Pods-PG5600_examTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_examTests.release.xcconfig"; path = "Target Support Files/Pods-PG5600_examTests/Pods-PG5600_examTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -177,8 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				44EF7DEF23539D5D00581152 /* PG5600_exam */,
-				44EF7E0623539D6100581152 /* PG5600_examTests */,
-				44EF7E1123539D6100581152 /* PG5600_examUITests */,
 				44EF7DEE23539D5D00581152 /* Products */,
 				B041934A95A7DAFEDBA4C22A /* Pods */,
 				F1FCFBDD64ECD8BFFA04DBFF /* Frameworks */,
@@ -213,24 +205,6 @@
 				448EBEB82368822D009AEBF0 /* PG5600_exam.xcdatamodeld */,
 			);
 			path = PG5600_exam;
-			sourceTree = "<group>";
-		};
-		44EF7E0623539D6100581152 /* PG5600_examTests */ = {
-			isa = PBXGroup;
-			children = (
-				44EF7E0723539D6100581152 /* PG5600_examTests.swift */,
-				44EF7E0923539D6100581152 /* Info.plist */,
-			);
-			path = PG5600_examTests;
-			sourceTree = "<group>";
-		};
-		44EF7E1123539D6100581152 /* PG5600_examUITests */ = {
-			isa = PBXGroup;
-			children = (
-				44EF7E1223539D6100581152 /* PG5600_examUITests.swift */,
-				44EF7E1423539D6100581152 /* Info.plist */,
-			);
-			path = PG5600_examUITests;
 			sourceTree = "<group>";
 		};
 		44F1529123688F0A002FC1EF /* Favorites */ = {
@@ -533,7 +507,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44EF7E0823539D6100581152 /* PG5600_examTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,7 +514,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44EF7E1323539D6100581152 /* PG5600_examUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
