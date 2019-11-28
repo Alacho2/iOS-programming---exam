@@ -30,16 +30,17 @@ because Apple doesn't provide an API for caching images. In the Favorite control
 to process 50 high res images to make the list. 
 
 There were two problems when doing this manually:
-* Whenever the image was downloaded, it could take up to 12 seconds before the app began 
-showing content.
+* Whenever the images of the FavoriteController was downloaded, it could take up to 12 seconds
+before the app began showing content.
 * Whenever this was done on the fly, the UI was lagging out and we sometimes ended up with
-covers ending up on the wrong album.
+covers placed on the wrong album.
 
 The pro of this is that we get a smooth transition for images, at the same time that we
 get a simple placeholder for images not existing. 
 
 This con of Kingfisher is that it writes the high res image to the disk (and to memory),
 and in some cases this might end up consuming unnecessary amounts of storage.
+Though it is highly worth it to get a smooth UI/UX in our case.
 
 #### Alamofire
 Networks requests are important. They are high targets of attacks and vulnerable to hackers 
@@ -51,25 +52,29 @@ Alamofire also makes the handling of response, error and status code a lot simpl
 using the standard URLSession-API Apple provides. The disadvantage, however, is that we
 give away a lot of control to writing network requests and we're including a library 
 for very little code. Even though we can write extensions to further increase our own
-control over the code running, we can't guarantee it fully.
+control over the code running, we can't guarantee it fully. In my opinion, the code also
+becomes more readable, understandable and maintainable. More elegant, as their slogan is.
 
-#### The bad
+For further reading, I'd like to point to this article:
+https://www.avanderlee.com/swift/alamofire-vs-urlsession/
+
+### Notable mentions
 I think it's good that we can agree on one thing. NSFetchedResultsControllerDelegate is
 not working as it should in iOS 13. Once we've established that, you'll see the beauty in
-my way of updating the sortId for the core data. 
+my way of updating the sortId for core data. 
 
 Firstly, when we attempt to use .move and .update, they won't be triggered until you've called
 the sortId when moving. Meaning that the delegate becomes useless, as you manually need to trigger it.
 
 Secondly, since the NSFetchedResultsControllerDelegate is not working, we need to manually set 
-the order in the database, this triggers discrepancy in the database. Nevertheless, I have, to
-the best of my ability, worked around these discrepancies and made had to implement the controller
+the order in the database, this might trigger discrepancy. Nevertheless, I have, to
+the best of my ability, worked around these discrepancies and had to implement the delegate
 from scratch.
 
-So dear examiner, I welcome you to attempt to implement the .update and .move cases for the
-NSFetchedResultsControllerDelegate to see if you can outsmart Apple. :) 
+So dear examiner, I hope you can see the beauty in what I created, even though the code is...
+very childish.
 
-#### The grade
+### The grade
 It's rare that I ever try to grade myself, but I feel, given the circumstances, that I could
 give it a try. Given everything I've implemented, and how I have implemented it, and solved
-all the tasks for the exam, I'd grade myself with a B or an A.
+all the tasks for the exam, I'd grade myself with an A.
