@@ -9,7 +9,8 @@ This is my exam in iOS Programming at Kristiania University College (Høyskolen 
 The task was to create a simple app to keep track of a users favorite tracks, list albums, search
 through music based on a public API, show a Top 50 list of albums from the same API, give a detailed
 view of the albums music, allow the user to rearrange the tracks in the underlying database, and 
-provide recommended artists based on the users favorite music.
+provide recommended artists based on the users favorite music. The device should be working on all
+devices between iPhone SE and iPhone 11 Pro Max.
 
 ### Highlights of the exam include
 * A network call to fetch data, based on generics that is usable in any situation, whatever data
