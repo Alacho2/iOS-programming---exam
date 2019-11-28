@@ -52,16 +52,29 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func changeSortIndex(for origin: Int, by: Int, up: Bool) {
-      let fetchedSourceObject = fetchedResultsController.object(at: IndexPath(row: origin, section: 0));
-      let storedSourceObject = context.object(with: fetchedSourceObject.objectID) as! Track;
-      storedSourceObject.sortId = Int16(destinationIndexPath.row)
+      let sourceObject = fetchedResultsController.object(at: sourceIndexPath)
+      let mutableSourceObject = context.object(with: sourceObject.objectID) as! Track;
       
-      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: by) {
-        let fetchedObjectToMove = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
-        let storedObjectToMove = context.object(with: fetchedObjectToMove.objectID) as! Track;
-        if up { storedObjectToMove.sortId = Int16(index + 1) }
-        else { storedObjectToMove.sortId = Int16(index - 1) }
+      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: 1) {
+        let movingObject = fetchedResultsController.object(at: IndexPath(row: index, section: 0))
+        let mutableMovingObject = context.object(with: movingObject.objectID) as! Track;
+        mutableMovingObject.sortId = Int16(index + 1)
       }
+      
+      mutableSourceObject.sortId = Int16(destinationIndexPath.row);
+    }
+    
+    func changeSortIndexSecond(for origin: Int, by: Int, up: Bool) {
+      let sourceObject = fetchedResultsController.object(at: sourceIndexPath)
+      let mutableSourceObject = context.object(with: sourceObject.objectID) as! Track;
+      
+      for index in stride(from: destinationIndexPath.row, to: sourceIndexPath.row, by: -1) {
+        let movingObject = fetchedResultsController.object(at: IndexPath(row: index, section: 0));
+        let mutableMovingObject = context.object(with: movingObject.objectID) as! Track;
+        mutableMovingObject.sortId = Int16(index - 1);
+      }
+      
+      mutableSourceObject.sortId = Int16(destinationIndexPath.row);
     }
     
     if sourceIndexPath == destinationIndexPath {
@@ -70,11 +83,13 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
       // From one row to over/below
       switchRows(surceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
     } else if sourceIndexPath.row < destinationIndexPath.row {
+      // To er større enn from
       // Move rows up
-      changeSortIndex(for: sourceIndexPath.row, by: -1, up: false);
+      changeSortIndexSecond(for: sourceIndexPath.row, by: +1, up: true);
     } else if sourceIndexPath.row > destinationIndexPath.row {
       // Move rows down
-      changeSortIndex(for: sourceIndexPath.row, by: +1, up: true);
+      // From er større enn to
+      changeSortIndex(for: sourceIndexPath.row, by: -1, up: false);
     }
     // Save to the database
     PersistanceHandler.saveContext();
