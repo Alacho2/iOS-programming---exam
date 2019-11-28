@@ -79,7 +79,7 @@ extension AlbumDetailController: UITableViewDelegate, UITableViewDataSource {
     track.intDuration = item.intDuration;
     track.strAlbum = item.strAlbum;
     track.strArtist = item.strArtist;
-    //track.sortId = Int16(0);
+    track.sortId = Int16(10000);
     PersistanceHandler.saveContext();
   }
 }

@@ -5,7 +5,7 @@ Xcode version: 11.2.1
 
 iOS simulator version: 13.2.2
 
-This is my exam in iOS Programming at Kristiania University College (Høyskolen Kristiania Oslo).
+This is my exam in iOS Programming at Kristiania University College (Høyskolen Kristiania, Oslo).
 The task was to create a simple app to keep track of a users favorite tracks, list albums, search
 through music based on a public API, show a Top 50 list of albums from the same API, give a detailed
 view of the albums music, allow the user to rearrange the tracks in the underlying database, and 
@@ -78,3 +78,8 @@ very childish.
 It's rare that I ever try to grade myself, but I feel, given the circumstances, that I could
 give it a try. Given everything I've implemented, and how I have implemented it, and solved
 all the tasks for the exam, I'd grade myself with an A.
+
+### Various screenshots
+![Favorites and suggested section](https://i.imgur.com/GeNlcGw.png)
+![Top 50 albums grid](https://i.imgur.com/ylowkE7.png)
+![Top 50 albums list](https://i.imgur.com/UoDpVRr.png)
