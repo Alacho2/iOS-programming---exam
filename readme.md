@@ -74,6 +74,8 @@ from scratch.
 So dear examiner, I hope you can see the beauty in what I created, even though the code is...
 very childish.
 
+A side note: I've also implemented that you can navigate to an album you're searching for.
+
 ### The grade
 It's rare that I ever try to grade myself, but I feel, given the circumstances, that I could
 give it a try. Given everything I've implemented, how I have implemented it, and the fact
