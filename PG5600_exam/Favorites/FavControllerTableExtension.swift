@@ -30,7 +30,7 @@ extension FavController: UITableViewDataSource, UITableViewDelegate {
     let item = fetchedResultsController.object(at: indexPath);
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "FavItem") as! FavItemCell;
-    cell.artistTitle?.text = item.strAlbum;
+    cell.artistTitle?.text = item.strArtist;
     cell.trackTitle?.text = item.strTrack;
     if let duration = item.intDuration {
       cell.duration?.text = Int(duration)?.msToFormattedMinSec

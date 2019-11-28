@@ -76,10 +76,16 @@ very childish.
 
 ### The grade
 It's rare that I ever try to grade myself, but I feel, given the circumstances, that I could
-give it a try. Given everything I've implemented, and how I have implemented it, and solved
-all the tasks for the exam, I'd grade myself with an A.
+give it a try. Given everything I've implemented, how I have implemented it, and the fact
+that I have solved all the tasks for the exam, I'd grade myself with an A.
 
 ### Various screenshots
 ![Favorites and suggested section](https://i.imgur.com/GeNlcGw.png)
+
 ![Top 50 albums grid](https://i.imgur.com/ylowkE7.png)
+
 ![Top 50 albums list](https://i.imgur.com/UoDpVRr.png)
+
+![Search controller](https://i.imgur.com/aytZGXn.png)
+
+![Album detail](https://i.imgur.com/BmQlaz0.png)

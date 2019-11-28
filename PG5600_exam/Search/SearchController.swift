@@ -23,10 +23,16 @@ class SearchController: UIViewController, UISearchBarDelegate {
   
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    //if searchText.count >= 2 {
-      let searchText = searchText.replacingOccurrences(of: " ", with: "+");
-      searchTheApi(query: searchText);
-    //}
+    let searchText = searchText.replacingOccurrences(of: " ", with: "+");
+    // Dismiss the keyboard if the text is cleared.
+    if searchText.count == 0 {
+      searchBar.resignFirstResponder();
+    }
+    searchTheApi(query: searchText);
+  }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.resignFirstResponder();
   }
   
   
